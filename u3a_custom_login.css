@@ -1,0 +1,40 @@
+/* Change background image and font family */
+
+body {
+  background: #f9e8ce;
+  background-image: url('images/page-background.jpg');
+  background-size: cover;
+  font-family: Arial, Verdana, sans-serif;
+}
+
+/* Style the logo */
+
+.login h1 a {
+  background-image: url('images/U3Alogo250px.png');
+  background-size:120px;
+  width:auto;
+  margin: 0 auto;
+}
+
+/* Add a few changes to the color and style of form itself */
+
+.login label {
+  color: #454545;
+  display: block;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+
+.login form .input {
+  font-weight: normal;
+}
+
+.login #backtoblog a, .login #nav a {
+  color: #005ab8;
+  font-size: 120%;
+}
+
+.wp-core-ui .button-primary {
+  background: #2886e6;
+  font-weight: bold;
+}
