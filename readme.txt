@@ -1,6 +1,6 @@
 === u3a-wp-configuration ===
 Requires at least: 5.9
-Tested up to: 6.3
+Tested up to: 6.4
 Stable tag: 5.9
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -55,6 +55,9 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+= 1.0.0 =
+* First production code release
+* Tested up to WordPress 6.4
 = 0.3.98 =
 * Release candidate 1
 * Update plugin update checker library to v5p2
