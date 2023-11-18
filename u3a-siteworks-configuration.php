@@ -6,7 +6,7 @@
  * Author: u3a SiteWorks team
  * Author URI: https://siteworks.u3a.org.uk/
  * Plugin URI: https://siteworks.u3a.org.uk/
- * Version: 0.3.98
+ * Version: 1.0.0
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -14,7 +14,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-define('SW_CONFIGURATION_VERSION', '0.3.98');  // Set to current plugin version number
+define('SW_CONFIGURATION_VERSION', '1.0.0');  // Set to current plugin version number
 
 /*
  * Use the plugin update service on SiteWorks update server
