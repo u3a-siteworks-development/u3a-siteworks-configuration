@@ -6,7 +6,7 @@
  * Author: u3a SiteWorks team
  * Author URI: https://siteworks.u3a.org.uk/
  * Plugin URI: https://siteworks.u3a.org.uk/
- * Version: 1.0.0
+ * Version: 1.0.1
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -14,7 +14,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-define('SW_CONFIGURATION_VERSION', '1.0.0');  // Set to current plugin version number
+define('SW_CONFIGURATION_VERSION', '1.0.1');  // Set to current plugin version number
 
 /*
  * Use the plugin update service on SiteWorks update server
@@ -318,6 +318,14 @@ function u3a_move_analytics_menu()
         }
     }
 }
+
+/* Configure the Lightbox for Gallery & Image Block to load assets on all pages
+ * so that it works on content inside Query loops and other dynamic content blocks
+ * ref: https://wordpress.org/plugins/gallery-block-lightbox/
+ * Relates to bug #914
+ */
+add_filter( 'baguettebox_enqueue_assets', '__return_true' );
+
 
 /* refer to the security section of https://developer.mozilla.org/en-US/docs/Web/HTTP
 X-Frame-Options disallows embedding in <frame> so prevents our code from being
