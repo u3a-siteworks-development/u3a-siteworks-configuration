@@ -55,6 +55,8 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+= 1.0.1 =
+* Bug 914 - Ensure assets to support 'Lightbox for Gallery & Image Block' plugin are loaded on all pages (Nov 2023)
 = 1.0.0 =
 * First production code release
 * Tested up to WordPress 6.4
