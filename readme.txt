@@ -19,6 +19,8 @@ This plugin is part of the SiteWorks project.  It's purpose is to modify a numbe
 * The login screen is replaced with a customised u3a branded version
 * The capabilities to edit and publish pages is added to the 'Author' role
 * Menu position of Independent Analytics plugin (if present) is moved from default
+* The word 'u3a' is added at the end of the HTML page title unless already present in the text, or the constant U3A_NO_TITLE_CHANGE is defined
+* A cautionary notice is shown on the Add New Plugin page unless the constant U3A_NO_ADD_PLUGIN_NOTICE is defined
 
 = Performance related =
 * Removes unnecessary elements from the HTML head section
@@ -55,6 +57,9 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+= 1.0.2 =
+* Bug 1009 - Add 'u3a' at the end of the HTML title tag unless already present (Jan 2004)
+* Feature 1010 - Add cautionary notice to the Add New Plugin page with link to SiteWorks help on plugins
 = 1.0.1 =
 * Bug 914 - Ensure assets to support 'Lightbox for Gallery & Image Block' plugin are loaded on all pages (Nov 2023)
 = 1.0.0 =

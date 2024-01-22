@@ -6,7 +6,7 @@
  * Author: u3a SiteWorks team
  * Author URI: https://siteworks.u3a.org.uk/
  * Plugin URI: https://siteworks.u3a.org.uk/
- * Version: 1.0.1
+ * Version: 1.0.2
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -14,7 +14,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-define('SW_CONFIGURATION_VERSION', '1.0.1');  // Set to current plugin version number
+define('SW_CONFIGURATION_VERSION', '1.0.2');  // Set to current plugin version number
 
 /*
  * Use the plugin update service on SiteWorks update server
@@ -357,3 +357,40 @@ function add_security_headers()
 }
 
 add_action("send_headers", "add_security_headers");
+
+/**
+ * Display a cautionary message at the top of the Dashboard Add Plugin page
+ * The notice can be suppressed by defining the constant U3A_NO_ADD_PLUGIN_NOTICE in wp-config.php
+ */
+
+if (!defined('U3A_NO_ADD_PLUGIN_NOTICE')) {
+    add_action('admin_notices', function () {
+        global $pagenow;
+        if ('plugin-install.php' == $pagenow) {
+            print <<< END
+<div class="notice notice-warning is-dismissible" style="background-color:#ffc700;">
+<p style="font-size: 130%"><strong>SiteWorks Notice - Adding plugins</strong></p><p style="font-size: 115%">Adding plugins can result in problems with your website.  Never install a plugin on your production website without thoroughly testing it first.<br>Please refer to the <a href="https://siteworks.u3a.org.uk/docs/plugins/">SiteWorks User Guide</a> for more information.</p>
+</div>
+END;
+        }
+    });
+}
+
+/**
+ * Modify the <title> tag to add the word 'u3a' at the end of the site title
+ * unless the site title already includes 'u3a'
+ * or the constant U3A_NO_TITLE_CHANGE is defined in wp-config.php
+ */
+
+if (!defined('U3A_NO_TITLE_CHANGE')) {
+    add_filter('document_title_parts', function ($title) {
+        if (isset($title['site']) && (stripos($title['site'], 'u3a') === false)) {
+            $title['site'] .= ' u3a';
+        } else {
+            if (stripos($title['title'], 'u3a') === false) {
+                $title['title'] .= ' u3a';
+            }
+        }
+        return $title;
+    });
+}
