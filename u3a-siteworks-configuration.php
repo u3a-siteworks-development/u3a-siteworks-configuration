@@ -378,18 +378,18 @@ END;
 
 /**
  * Modify the <title> tag to add the word 'u3a' at the end of the site title
- * unless the site title already includes 'u3a'
+ * unless the site title already has 'u3a' at the end
  * or the constant U3A_NO_TITLE_CHANGE is defined in wp-config.php
  */
 
 if (!defined('U3A_NO_TITLE_CHANGE')) {
     add_filter('document_title_parts', function ($title) {
-        if (isset($title['site']) && (stripos($title['site'], 'u3a') === false)) {
+        if (isset($title['site']) && (strtolower(substr(rtrim($title['site']), -3)) != 'u3a')) {
             $title['site'] .= ' u3a';
-        } else {
-            if (stripos($title['title'], 'u3a') === false) {
-                $title['title'] .= ' u3a';
-            }
+            return $title;
+        }
+        if (is_home() || is_front_page() && (strtolower(substr(rtrim($title['title']), -3)) != 'u3a')) {
+            $title['title'] .= ' u3a';
         }
         return $title;
     });
