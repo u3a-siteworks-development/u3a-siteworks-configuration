@@ -1,6 +1,6 @@
 === u3a-wp-configuration ===
 Requires at least: 5.9
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 5.9
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -22,6 +22,10 @@ This plugin is part of the SiteWorks project.  It's purpose is to modify a numbe
 
 = Performance related =
 * Removes unnecessary elements from the HTML head section
+
+= User permissions =
+* An Author is allowed to edit pages where they have been assigned as the author, but not create new pages
+* An Author is allowed to edit a group post where they have been assigned as the author, but not delete the group post.
 
 = Security related =
 * Disables the users REST endpoint so that usernames are not exposed via this interface
@@ -55,6 +59,7 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+* Feature 1025 (and others) - An author can not delete a group where they have been assigned as the author (March 2024)
 = 1.0.1 =
 * Bug 914 - Ensure assets to support 'Lightbox for Gallery & Image Block' plugin are loaded on all pages (Nov 2023)
 = 1.0.0 =
