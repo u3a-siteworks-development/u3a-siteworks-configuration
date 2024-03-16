@@ -253,6 +253,21 @@ function u3a_change_author_page_capability($args, $post_type)
 }
 add_filter('register_post_type_args', 'u3a_change_author_page_capability', 10, 2);
 
+// Prevent 'Author' from deleting a u3a group CPT
+add_filter('map_meta_cap', function ($caps, $cap, $user_id, $args) {
+    // Nothing to do if not delete_post capability
+    if ('delete_post' !== $cap || empty($args[0]))
+        return $caps;
+
+    // If current user has 'author' role, disallow delete for u3a group CPT
+    $user = get_userdata($user_id);
+    if (in_array('author', $user->roles, true)) {
+        if (in_array(get_post_type($args[0]), ['u3a_group'], true))
+            $caps[] = 'do_not_allow';
+    }
+    return $caps;
+}, 10, 4);
+
 /**
  * Turn off the texturizer!
  */
