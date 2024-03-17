@@ -15,6 +15,7 @@ This plugin is part of the SiteWorks project.  It's purpose is to modify a numbe
 = WordPress functionality =
 * Support for Comments is disabled globally
 * Posts are sorted in alphabetic order of title rather than the default order of post date
+* Add medium_large to the list of image sizes available when adding an image in the block editor.
 * PDF document preview is disabled
 * The login screen is replaced with a customised u3a branded version
 * The capabilities to edit and publish pages is added to the 'Author' role
@@ -59,6 +60,7 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+* Add medium_large to the list of image sizes available when adding an image in the block editor. (March 2024)
 * Feature 1025 (and others) - An author can not delete a group where they have been assigned as the author (March 2024)
 = 1.0.1 =
 * Bug 914 - Ensure assets to support 'Lightbox for Gallery & Image Block' plugin are loaded on all pages (Nov 2023)

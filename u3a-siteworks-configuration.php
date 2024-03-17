@@ -161,6 +161,21 @@ function set_post_order_in_admin($wp_query)
 add_filter('pre_get_posts', 'set_post_order_in_admin');
 
 
+/* Add medium_large to the list of image sizes to choose from in
+ * the RESOLUTION setting when adding an image in the block editor.
+ * Add pixel sizes to the labels for the other default sizes.
+ */
+add_filter('image_size_names_choose', function () {
+    return [
+        'thumbnail' => 'Thumbnail (150px)',
+        'medium' => 'Medium (300px)',
+        'medium_large' => 'Medium-Large (768px)',
+        'large' => 'Large (1024px)',
+        'full' => 'Full Size',
+    ];
+});
+
+
 /**
  * Prevent WordPress generating previews of PDF documents
  * Ref: https://www.wpbeginner.com/wp-tutorials/how-to-disable-pdf-thumbnail-previews-in-wordpress/
