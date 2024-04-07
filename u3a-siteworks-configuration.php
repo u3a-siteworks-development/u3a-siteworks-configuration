@@ -166,11 +166,15 @@ add_filter('pre_get_posts', 'set_post_order_in_admin');
  * Add pixel sizes to the labels for the other default sizes.
  */
 add_filter('image_size_names_choose', function () {
+    $thumb = get_option('thumbnail_size_w','150') . 'px';
+    $medium = get_option('medium_size_w','300') . 'px';
+    $mlarge = get_option('medium_large_size_w','768') . 'px';
+    $large = get_option('large_size_w','1024') . 'px';
     return [
-        'thumbnail' => 'Thumbnail (150px)',
-        'medium' => 'Medium (300px)',
-        'medium_large' => 'Medium-Large (768px)',
-        'large' => 'Large (1024px)',
+        'thumbnail' => "Thumbnail ($thumb)",
+        'medium' => "Medium ($medium)",
+        'medium_large' => "Medium-Large ($mlarge)",
+        'large' => "Large ($large)",
         'full' => 'Full Size',
     ];
 });
@@ -404,24 +408,5 @@ add_action("send_headers", "add_security_headers");
 </div>
 END;
         }
-    });
-}
-
-/**
- * Modify the <title> tag to add the word 'u3a' at the end of the site title
- * unless the site title already has 'u3a' at the end
- * or the constant U3A_NO_TITLE_CHANGE is defined in wp-config.php
- */
-
-if (!defined('U3A_NO_TITLE_CHANGE')) {
-    add_filter('document_title_parts', function ($title) {
-        if (isset($title['site']) && (strtolower(substr(rtrim($title['site']), -3)) != 'u3a')) {
-            $title['site'] .= ' u3a';
-            return $title;
-        }
-        if (is_home() || is_front_page() && (strtolower(substr(rtrim($title['title']), -3)) != 'u3a')) {
-            $title['title'] .= ' u3a';
-        }
-        return $title;
     });
 }
