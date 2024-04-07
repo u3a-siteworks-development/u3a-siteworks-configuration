@@ -166,11 +166,15 @@ add_filter('pre_get_posts', 'set_post_order_in_admin');
  * Add pixel sizes to the labels for the other default sizes.
  */
 add_filter('image_size_names_choose', function () {
+    $thumb = get_option('thumbnail_size_w','150') . 'px';
+    $medium = get_option('medium_size_w','300') . 'px';
+    $mlarge = get_option('medium_large_size_w','768') . 'px';
+    $large = get_option('large_size_w','1024') . 'px';
     return [
-        'thumbnail' => 'Thumbnail (150px)',
-        'medium' => 'Medium (300px)',
-        'medium_large' => 'Medium-Large (768px)',
-        'large' => 'Large (1024px)',
+        'thumbnail' => "Thumbnail ($thumb)",
+        'medium' => "Medium ($medium)",
+        'medium_large' => "Medium-Large ($mlarge)",
+        'large' => "Large ($large)",
         'full' => 'Full Size',
     ];
 });
@@ -387,3 +391,22 @@ function add_security_headers()
 }
 
 add_action("send_headers", "add_security_headers");
+
+
+/**
+ * Display a cautionary message at the top of the Dashboard Add Plugin page
+ * if the constant U3A_SHOW_PLUGIN_CAUTION is defined in wp-config.php
+ */
+
+ if (defined('U3A_SHOW_PLUGIN_CAUTION')) {
+    add_action('admin_notices', function () {
+        global $pagenow;
+        if ('plugin-install.php' == $pagenow) {
+            print <<< END
+<div class="notice notice-warning is-dismissible" style="background-color:#ffc700;">
+<p style="font-size: 130%"><strong>SiteWorks Notice - Adding plugins</strong></p><p style="font-size: 115%">Adding plugins can result in problems with your website.  Never install a plugin on your production website without thoroughly testing it first.<br>Please refer to the <a href="https://siteworks.u3a.org.uk/docs/plugins/">SiteWorks User Guide</a> for more information.</p>
+</div>
+END;
+        }
+    });
+}

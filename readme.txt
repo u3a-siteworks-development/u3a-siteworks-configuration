@@ -20,6 +20,7 @@ This plugin is part of the SiteWorks project.  It's purpose is to modify a numbe
 * The login screen is replaced with a customised u3a branded version
 * The capabilities to edit and publish pages is added to the 'Author' role
 * Menu position of Independent Analytics plugin (if present) is moved from default
+* A cautionary notice is shown on the Add New Plugin page if the constant U3A_SHOW_PLUGIN_CAUTION is defined
 
 = Performance related =
 * Removes unnecessary elements from the HTML head section
@@ -60,6 +61,7 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+* Feature 1010 - Add facility for cautionary notice to the Add New Plugin page with link to SiteWorks help on plugins
 * Add medium_large to the list of image sizes available when adding an image in the block editor. (March 2024)
 * Feature 1025 (and others) - An author can not delete a group where they have been assigned as the author (March 2024)
 = 1.0.1 =
