@@ -20,7 +20,6 @@ This plugin is part of the SiteWorks project.  It's purpose is to modify a numbe
 * The login screen is replaced with a customised u3a branded version
 * The capabilities to edit and publish pages is added to the 'Author' role
 * Menu position of Independent Analytics plugin (if present) is moved from default
-* The word 'u3a' is added at the end of the HTML page title unless already present in the text, or the constant U3A_NO_TITLE_CHANGE is defined
 * A cautionary notice is shown on the Add New Plugin page if the constant U3A_SHOW_PLUGIN_CAUTION is defined
 
 = Performance related =
