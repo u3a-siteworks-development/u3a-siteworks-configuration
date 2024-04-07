@@ -387,3 +387,41 @@ function add_security_headers()
 }
 
 add_action("send_headers", "add_security_headers");
+
+
+/**
+ * Display a cautionary message at the top of the Dashboard Add Plugin page
+ * if the constant U3A_SHOW_PLUGIN_CAUTION is defined in wp-config.php
+ */
+
+ if (defined('U3A_SHOW_PLUGIN_CAUTION')) {
+    add_action('admin_notices', function () {
+        global $pagenow;
+        if ('plugin-install.php' == $pagenow) {
+            print <<< END
+<div class="notice notice-warning is-dismissible" style="background-color:#ffc700;">
+<p style="font-size: 130%"><strong>SiteWorks Notice - Adding plugins</strong></p><p style="font-size: 115%">Adding plugins can result in problems with your website.  Never install a plugin on your production website without thoroughly testing it first.<br>Please refer to the <a href="https://siteworks.u3a.org.uk/docs/plugins/">SiteWorks User Guide</a> for more information.</p>
+</div>
+END;
+        }
+    });
+}
+
+/**
+ * Modify the <title> tag to add the word 'u3a' at the end of the site title
+ * unless the site title already has 'u3a' at the end
+ * or the constant U3A_NO_TITLE_CHANGE is defined in wp-config.php
+ */
+
+if (!defined('U3A_NO_TITLE_CHANGE')) {
+    add_filter('document_title_parts', function ($title) {
+        if (isset($title['site']) && (strtolower(substr(rtrim($title['site']), -3)) != 'u3a')) {
+            $title['site'] .= ' u3a';
+            return $title;
+        }
+        if (is_home() || is_front_page() && (strtolower(substr(rtrim($title['title']), -3)) != 'u3a')) {
+            $title['title'] .= ' u3a';
+        }
+        return $title;
+    });
+}
