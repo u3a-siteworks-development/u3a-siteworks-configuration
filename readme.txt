@@ -61,6 +61,7 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+= 1.1.0 =
 * Feature 1010 - Add facility for cautionary notice to the Add New Plugin page with link to SiteWorks help on plugins
 * Add medium_large to the list of image sizes available when adding an image in the block editor. (March 2024)
 * Feature 1025 (and others) - An author can not delete a group where they have been assigned as the author (March 2024)
