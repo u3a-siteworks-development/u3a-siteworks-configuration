@@ -410,3 +410,56 @@ END;
         }
     });
 }
+
+/**
+ * Provide a degree of protection for a defined account login name
+ * if the constant U3A_SYSADMIN is defined in wp-config.php
+ * eg define( 'U3A_SYSADMIN', 'adminUserName' );
+ */
+
+if (is_admin() && defined('U3A_SYSADMIN')) {
+
+    // Remove the account actions for the defined user
+    add_filter( 'user_row_actions', function ($actions, $user) {
+        if (U3A_SYSADMIN == $user->user_login){
+            $actions = array();
+        }
+        return $actions;
+    },10,2);
+
+    // Silently ignore attempt to delete defined System Admin user
+    add_action('delete_user', function ($id, $reassign, $user) {
+        if (U3A_SYSADMIN == $user->user_login) {
+            wp_redirect(admin_url('users.php'));
+            exit;
+        }
+    }, 0, 3);
+
+    // Silently ignore attempt to modify profile of defined System Admin user
+    // unless that user is modifying their own profile
+    add_action('edit_user_profile_update', function ($userID) {
+        $current_user = wp_get_current_user();
+        if (U3A_SYSADMIN == $current_user->user_login) {
+            return;
+        }
+        $user = get_user_by('id', $userID);
+        if (U3A_SYSADMIN == $user->user_login) {
+            wp_redirect(admin_url('users.php'));
+            exit;
+        }
+    });
+}
+
+/**
+ * Add the readonly property to the fields in the General Settings page
+ * for WordPress Address (URL) and Site Address (URL)
+ * if the constant SITEWORKS_HOSTING is defined in wp-config.php
+ */
+if (is_admin() && defined('SITEWORKS_HOSTING')) {
+    add_action('admin_enqueue_scripts', function () {
+        global $pagenow;
+        if ('options-general.php' == $pagenow) {
+            wp_enqueue_script( 'disable-url-edit', plugins_url( '/cfg1.js', __FILE__ ), [], false, true );
+        }
+    });
+}
