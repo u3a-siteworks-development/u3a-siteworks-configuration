@@ -61,6 +61,8 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+* Bug 1049: WMs are able to modify the WordPress Address (URL) resulting in a broken site
+* Bug 1047: It is possible for a WM to delete the SiteWorks administrative user
 = 1.1.0 =
 * Feature 1010 - Add facility for cautionary notice to the Add New Plugin page with link to SiteWorks help on plugins
 * Add medium_large to the list of image sizes available when adding an image in the block editor. (March 2024)
