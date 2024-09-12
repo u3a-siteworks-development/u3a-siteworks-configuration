@@ -379,7 +379,7 @@ function add_security_headers()
 
     header("X-Content-Type-Options: nosniff");
 
-    header('Strict-Transport-Security: "max-age=31536000"');
+    header('Strict-Transport-Security: max-age=31536000');
 
     if (defined('CSP_REPORT_URL')) {
         $reporting_url = CSP_REPORT_URL;
