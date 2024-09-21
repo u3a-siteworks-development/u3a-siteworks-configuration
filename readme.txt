@@ -61,6 +61,8 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+= 1.1.2 =
+* Bug 1077: Make Administration Email Address read-only (Settings->General) on SiteWorks hosting
 = 1.1.1 =
 * Bug 1049: WMs are able to modify the WordPress Address (URL) resulting in a broken site
 * Bug 1047: It is possible for a WM to delete the SiteWorks administrative user
