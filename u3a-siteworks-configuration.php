@@ -254,6 +254,8 @@ function u3a_change_author_role()
     $role->add_cap('edit_pages');
     $role->add_cap('edit_published_pages');
     $role->add_cap('publish_pages');
+    $role->remove_cap('delete_pages');
+    $role->remove_cap('delete_published_pages');
 }
 add_action('admin_init', 'u3a_change_author_role');
 
