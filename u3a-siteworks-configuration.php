@@ -6,7 +6,7 @@
  * Author: u3a SiteWorks team
  * Author URI: https://siteworks.u3a.org.uk/
  * Plugin URI: https://siteworks.u3a.org.uk/
- * Version: 1.1.2
+ * Version: 1.1.3
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -14,7 +14,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-define('SW_CONFIGURATION_VERSION', '1.1.2');  // Set to current plugin version number
+define('SW_CONFIGURATION_VERSION', '1.1.3');  // Set to current plugin version number
 
 /*
  * Use the plugin update service on SiteWorks update server
@@ -247,15 +247,13 @@ add_filter('login_site_html_link', 'u3a_back_to_blog_link');
 
 
 // change the default 'Author' role to allow editing pages
+// OP1078 do not provide capability for 'Author' to delete pages
 function u3a_change_author_role()
 {
     $role = get_role('author');
     $role->add_cap('edit_pages');
     $role->add_cap('edit_published_pages');
     $role->add_cap('publish_pages');
-    $role->add_cap('edit_published_pages');
-    $role->add_cap('delete_pages');
-    $role->add_cap('delete_published_pages');
 }
 add_action('admin_init', 'u3a_change_author_role');
 

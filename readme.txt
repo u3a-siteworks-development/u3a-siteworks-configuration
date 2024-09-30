@@ -1,6 +1,6 @@
 === u3a-wp-configuration ===
 Requires at least: 5.9
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 5.9
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -61,6 +61,8 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+= 1.1.3 =
+* Bug 1078: Author should not be able to delete a Page assigned to them
 = 1.1.2 =
 * Bug 1077: Make Administration Email Address read-only (Settings->General) on SiteWorks hosting
 = 1.1.1 =
