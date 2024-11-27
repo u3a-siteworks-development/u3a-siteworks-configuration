@@ -280,7 +280,7 @@ add_filter('map_meta_cap', function ($caps, $cap, $user_id, $args) {
 
     // If current user has 'author' role, disallow delete for u3a group CPT
     $user = get_userdata($user_id);
-    if (in_array('author', $user->roles, true)) {
+    if (($user == false) || in_array('author', $user->roles, true)) {
         if (in_array(get_post_type($args[0]), ['u3a_group'], true))
             $caps[] = 'do_not_allow';
     }
