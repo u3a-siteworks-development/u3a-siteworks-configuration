@@ -1,8 +1,11 @@
-<?php
+<?php // phpcs:ignore PSR1.Files.SideEffects.FoundWithSymbols
 
 /**
  * Plugin Name: u3a SiteWorks WordPress Configuration
- * Description: This plugin disables the WordPress comments facility, removes unnecessary material from the HTML head section, disables access to the 'users' rest endpoint and makes some changes in the admin menus
+ * Description: This plugin disables the WordPress comments
+ * facility, removes unnecessary material from the HTML head
+ * section, disables access to the 'users' rest endpoint and
+ * makes some changes in the admin menus
  * Author: u3a SiteWorks team
  * Author URI: https://siteworks.u3a.org.uk/
  * Plugin URI: https://siteworks.u3a.org.uk/
@@ -25,7 +28,7 @@ require 'plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 $cfgUpdateChecker = PucFactory::buildUpdateChecker(
-    'https://siteworks.u3a.org.uk/wp-update-server/?action=get_metadata&slug=u3a-siteworks-configuration', //Metadata URL
+    'https://siteworks.u3a.org.uk/wp-update-server/?action=get_metadata&slug=u3a-siteworks-configuration',
     __FILE__, //Full path to the main plugin file or functions.php.
     'u3a-siteworks-configuration'
 );
@@ -153,7 +156,8 @@ function remove_admin_bar()
 function set_post_order_in_admin($wp_query)
 {
     global $pagenow;
-    if (is_admin() && 'edit.php' == $pagenow && !isset($_GET['orderby'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET value not processed, only presence tested
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET value not processed, only presence tested
+    if (is_admin() && 'edit.php' == $pagenow && !isset($_GET['orderby'])) {
         $wp_query->set('orderby', 'title');
         $wp_query->set('order', 'ASC');
     }
@@ -166,10 +170,10 @@ add_filter('pre_get_posts', 'set_post_order_in_admin');
  * Add pixel sizes to the labels for the other default sizes.
  */
 add_filter('image_size_names_choose', function () {
-    $thumb = get_option('thumbnail_size_w','150') . 'px';
-    $medium = get_option('medium_size_w','300') . 'px';
-    $mlarge = get_option('medium_large_size_w','768') . 'px';
-    $large = get_option('large_size_w','1024') . 'px';
+    $thumb = get_option('thumbnail_size_w', '150') . 'px';
+    $medium = get_option('medium_size_w', '300') . 'px';
+    $mlarge = get_option('medium_large_size_w', '768') . 'px';
+    $large = get_option('large_size_w', '1024') . 'px';
     return [
         'thumbnail' => "Thumbnail ($thumb)",
         'medium' => "Medium ($medium)",
@@ -206,7 +210,12 @@ add_filter('login_headerurl', 'u3a_custom_login_url');
 
 function u3a_custom_login_css()
 {
-    wp_enqueue_style('login-styles', plugin_dir_url(__FILE__) . 'u3a_custom_login.css', array(), SW_CONFIGURATION_VERSION);
+    wp_enqueue_style(
+        'login-styles',
+        plugin_dir_url(__FILE__) . 'u3a_custom_login.css',
+        array(),
+        SW_CONFIGURATION_VERSION
+    );
 }
 add_action('login_enqueue_scripts', 'u3a_custom_login_css');
 
@@ -221,7 +230,8 @@ remove_filter('authenticate', 'wp_authenticate_email_password', 20);
 // prompt above login box
 add_filter('login_message', function () {
     $site = get_bloginfo('name');
-    return '<p style="text-align: center; font-size:150%"><strong>' . $site . '</strong><br>Access to member-only content</p>';
+    return '<p style="text-align: center; font-size:150%"><strong>' . $site .
+    '</strong><br>Access to member-only content</p>';
 });
 
 // change the label for the username
@@ -275,14 +285,16 @@ add_filter('register_post_type_args', 'u3a_change_author_page_capability', 10, 2
 // Prevent 'Author' from deleting a u3a group CPT
 add_filter('map_meta_cap', function ($caps, $cap, $user_id, $args) {
     // Nothing to do if not delete_post capability
-    if ('delete_post' !== $cap || empty($args[0]))
+    if ('delete_post' !== $cap || empty($args[0])) {
         return $caps;
+    }
 
     // If current user has 'author' role, disallow delete for u3a group CPT
     $user = get_userdata($user_id);
     if (($user == false) || in_array('author', $user->roles, true)) {
-        if (in_array(get_post_type($args[0]), ['u3a_group'], true))
+        if (in_array(get_post_type($args[0]), ['u3a_group'], true)) {
             $caps[] = 'do_not_allow';
+        }
     }
     return $caps;
 }, 10, 4);
@@ -323,7 +335,7 @@ if (defined('SMTP_USER') && defined('SMTP_PASS')) {
  * Configure PHP Mailer
  * Constants should be defined in wp_config.php
  *
- * @param PHP Mailer instance $phpmailer
+ * @param object PHP Mailer instance $phpmailer
  * @return void
  */
 function u3a_smtp_email_setup($phpmailer)
@@ -346,7 +358,8 @@ function u3a_move_analytics_menu()
     global $menu;
     foreach ($menu as $ref => $menuitem) {
         if ($menuitem[0] == 'Analytics') {
-            $menu[78] = $menu[$ref]; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- not aware of any other method to achieve this
+            // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- not aware of any other method to achieve this
+            $menu[78] = $menu[$ref];
             unset($menu[$ref]);
             return;
         }
@@ -358,7 +371,7 @@ function u3a_move_analytics_menu()
  * ref: https://wordpress.org/plugins/gallery-block-lightbox/
  * Relates to bug #914
  */
-add_filter( 'baguettebox_enqueue_assets', '__return_true' );
+add_filter('baguettebox_enqueue_assets', '__return_true');
 
 
 /* refer to the security section of https://developer.mozilla.org/en-US/docs/Web/HTTP
@@ -369,8 +382,10 @@ Strict transport security ensures that HTTPS is always used, and no later HTTP
 accesses are allowed.
 */
 
-// default-src covers connect,style,script,object-src forcing them all to be 'self' - font should have data: for base64 encoded fonts
-const DEFAULTSECURITY = "default-src 'unsafe-inline' 'unsafe-eval' 'self'; font-src 'self' data:; img-src * ; media-src *; frame-src * ;";
+// default-src covers connect,style,script,object-src forcing them all to be 'self'
+// - font should have data: for base64 encoded fonts
+const DEFAULTSECURITY = "default-src 'unsafe-inline' 'unsafe-eval' 'self'; 
+    font-src 'self' data:; img-src * ; media-src *; frame-src * ;";
 
 function add_security_headers()
 {
@@ -398,13 +413,18 @@ add_action("send_headers", "add_security_headers");
  * if the constant U3A_SHOW_PLUGIN_CAUTION is defined in wp-config.php
  */
 
- if (defined('U3A_SHOW_PLUGIN_CAUTION')) {
+if (defined('U3A_SHOW_PLUGIN_CAUTION')) {
     add_action('admin_notices', function () {
         global $pagenow;
         if ('plugin-install.php' == $pagenow) {
             print <<< END
 <div class="notice notice-warning is-dismissible" style="background-color:#ffc700;">
-<p style="font-size: 130%"><strong>SiteWorks Notice - Adding plugins</strong></p><p style="font-size: 115%">Adding plugins can result in problems with your website.  Never install a plugin on your production website without thoroughly testing it first.<br>Please refer to the <a href="https://siteworks.u3a.org.uk/docs/plugins/">SiteWorks User Guide</a> for more information.</p>
+<p style="font-size: 130%"><strong>SiteWorks Notice - Adding plugins</strong></p>
+<p style="font-size: 115%">Adding plugins can result in problems with your website.  
+Never install a plugin on your production website without thoroughly testing 
+it first.<br>Please refer to the 
+<a href="https://siteworks.u3a.org.uk/docs/plugins/">SiteWorks User Guide</a> 
+for more information.</p>
 </div>
 END;
         }
@@ -418,14 +438,13 @@ END;
  */
 
 if (is_admin() && defined('U3A_SYSADMIN')) {
-
     // Remove the account actions for the defined user
-    add_filter( 'user_row_actions', function ($actions, $user) {
-        if (U3A_SYSADMIN == $user->user_login){
+    add_filter('user_row_actions', function ($actions, $user) {
+        if (U3A_SYSADMIN == $user->user_login) {
             $actions = array();
         }
         return $actions;
-    },10,2);
+    }, 10, 2);
 
     // Silently ignore attempt to delete defined System Admin user
     add_action('delete_user', function ($id, $reassign, $user) {
@@ -459,7 +478,7 @@ if (is_admin() && defined('SITEWORKS_HOSTING')) {
     add_action('admin_enqueue_scripts', function () {
         global $pagenow;
         if ('options-general.php' == $pagenow) {
-            wp_enqueue_script( 'disable-url-edit', plugins_url( '/cfg1.js', __FILE__ ), [], false, true );
+            wp_enqueue_script('disable-url-edit', plugins_url('/cfg1.js', __FILE__), [], false, true);
         }
     });
 }

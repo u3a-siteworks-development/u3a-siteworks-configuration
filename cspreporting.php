@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore PSR1.Files.SideEffects.FoundWithSymbols
 
 /* This script should be placed in a directory on the chosen reporting server, and its
 address put in the constant CSP_REPORT_URL in wp-config.php of any u3a siteoworks server

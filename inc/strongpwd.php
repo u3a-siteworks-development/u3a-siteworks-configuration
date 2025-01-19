@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore Generic.Files.LineEndings.InvalidEOLChar
 
 /**
  * Enforce strong passwords (ESP) for all website users.
@@ -61,14 +61,16 @@ function esp_validate_password_reset($errors, $user_data)
     $error_message = null;
     if (is_null($password)) {  // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedIf -- intentionally no action
         // Don't do anything if there isn't a password to check.
-    } elseif (is_wp_error($errors) && $errors->get_error_data('pass')) {  // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedElseif -- intentionally no action
+        // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedElseif -- intentionally no action
+    } elseif (is_wp_error($errors) && $errors->get_error_data('pass')) {
         // We've already got a password-related error.
     } elseif (empty($user_name)) {
         $error_message = 'User name cannot be empty.';
     } else {
         $is_password_ok = esp_is_password_ok($password, $user_name);
         if (!$is_password_ok) {
-            $error_message = 'Password does not meet requirements.<br/>Between 8 and 64 characters, with at least one lower and upper case letter, a number and a punctuation character.';
+            $error_message = 'Password does not meet requirements.<br/>Between 8 and 64 
+            characters, with at least one lower and upper case letter, a number and a punctuation character.';
         }
     }
 
