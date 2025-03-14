@@ -61,6 +61,8 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+= 1.1.4 =
+* Bug 1133 Should not show author archive in response to /?author= query string
 = 1.1.3 =
 * Bug 1078: Author should not be able to delete a Page assigned to them
 = 1.1.2 =

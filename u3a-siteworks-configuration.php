@@ -6,7 +6,7 @@
  * Author: u3a SiteWorks team
  * Author URI: https://siteworks.u3a.org.uk/
  * Plugin URI: https://siteworks.u3a.org.uk/
- * Version: 1.1.3
+ * Version: 1.1.4
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -14,7 +14,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-define('SW_CONFIGURATION_VERSION', '1.1.3');  // Set to current plugin version number
+define('SW_CONFIGURATION_VERSION', '1.1.4');  // Set to current plugin version number
 
 /*
  * Use the plugin update service on SiteWorks update server
@@ -66,6 +66,20 @@ function remove_author_category_pages_from_sitemap($provider, $name)
     return $provider;
 }
 add_filter('wp_sitemaps_add_provider', 'remove_author_category_pages_from_sitemap', 10, 2);
+
+/**
+ * OP1133 Stop WordPress responding to ?author= queries
+ */
+add_action('template_redirect', 'u3a_hide_author_archive');
+
+function u3a_hide_author_archive()
+{
+    # If the author archive page is being accessed, redirect to homepage
+    if (is_author()) {
+        wp_safe_redirect( get_home_url(), 301 );
+        exit;
+    }
+}
 
 /*
     Clean unwanted stuff from HTML head section to improve performance
