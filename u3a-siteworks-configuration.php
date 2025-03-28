@@ -6,7 +6,7 @@
  * Author: u3a SiteWorks team
  * Author URI: https://siteworks.u3a.org.uk/
  * Plugin URI: https://siteworks.u3a.org.uk/
- * Version: 1.1.4
+ * Version: 1.2.0
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -14,21 +14,30 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-define('SW_CONFIGURATION_VERSION', '1.1.4');  // Set to current plugin version number
+define('SW_CONFIGURATION_VERSION', '1.2.0');  // Set to current plugin version number
 
 /*
- * Use the plugin update service on SiteWorks update server
+ * Use the plugin update service on SiteWorks update server (default)
+ * or an update service specified by the constant SW_UPDATE_SERVER_URL
+ * Provide a function that other plugins can call (once all plugins loaded)
  */
 
 require 'plugin-update-checker/plugin-update-checker.php';
-
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-$cfgUpdateChecker = PucFactory::buildUpdateChecker(
-    'https://siteworks.u3a.org.uk/wp-update-server/?action=get_metadata&slug=u3a-siteworks-configuration', //Metadata URL
-    __FILE__, //Full path to the main plugin file or functions.php.
-    'u3a-siteworks-configuration'
-);
+function u3a_plugin_update_setup($slug, $pluginFile) {
+
+    $swUpdateServerURL = defined('SW_UPDATE_SERVER_URL') ? SW_UPDATE_SERVER_URL : 'https://siteworks.u3a.org.uk/wp-update-server';
+
+    return PucFactory::buildUpdateChecker(
+        $swUpdateServerURL . '/?action=get_metadata&slug=' . $slug, //Metadata URL
+        $pluginFile, // Full path to the main plugin file given by __FILE__.
+        $slug // Name of plugin zip file (less .zip)
+    );
+}
+
+u3a_plugin_update_setup('u3a-siteworks-configuration', __FILE__);
+
 
 
 /**

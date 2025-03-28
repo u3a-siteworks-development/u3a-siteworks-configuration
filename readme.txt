@@ -1,6 +1,6 @@
 === u3a-wp-configuration ===
 Requires at least: 5.9
-Tested up to: 6.6
+Tested up to: 6.8
 Stable tag: 5.9
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -61,6 +61,9 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+= 1.2.0 =
+* Tested up to WordPress 6.8
+* Plugin update checker code revised and library updated to v5.5
 = 1.1.4 =
 * Bug 1133 Should not show author archive in response to /?author= query string
 = 1.1.3 =
