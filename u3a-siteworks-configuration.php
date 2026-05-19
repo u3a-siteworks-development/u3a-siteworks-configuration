@@ -6,7 +6,7 @@
  * Author: u3a SiteWorks team
  * Author URI: https://siteworks.u3a.org.uk/
  * Plugin URI: https://siteworks.u3a.org.uk/
- * Version: 1.2.0
+ * Version: 1.2.1
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -14,7 +14,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-define('SW_CONFIGURATION_VERSION', '1.2.0');  // Set to current plugin version number
+define('SW_CONFIGURATION_VERSION', '1.2.1');  // Set to current plugin version number
 
 /*
  * Use the plugin update service on SiteWorks update server (default)
@@ -23,9 +23,11 @@ define('SW_CONFIGURATION_VERSION', '1.2.0');  // Set to current plugin version n
  */
 
 require 'plugin-update-checker/plugin-update-checker.php';
+
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-function u3a_plugin_update_setup($slug, $pluginFile) {
+function u3a_plugin_update_setup($slug, $pluginFile)
+{
 
     $swUpdateServerURL = defined('SW_UPDATE_SERVER_URL') ? SW_UPDATE_SERVER_URL : 'https://siteworks.u3a.org.uk/wp-update-server';
 
@@ -85,7 +87,7 @@ function u3a_hide_author_archive()
 {
     # If the author archive page is being accessed, redirect to homepage
     if (is_author()) {
-        wp_safe_redirect( get_home_url(), 301 );
+        wp_safe_redirect(get_home_url(), 301);
         exit;
     }
 }
@@ -189,10 +191,10 @@ add_filter('pre_get_posts', 'set_post_order_in_admin');
  * Add pixel sizes to the labels for the other default sizes.
  */
 add_filter('image_size_names_choose', function () {
-    $thumb = get_option('thumbnail_size_w','150') . 'px';
-    $medium = get_option('medium_size_w','300') . 'px';
-    $mlarge = get_option('medium_large_size_w','768') . 'px';
-    $large = get_option('large_size_w','1024') . 'px';
+    $thumb = get_option('thumbnail_size_w', '150') . 'px';
+    $medium = get_option('medium_size_w', '300') . 'px';
+    $mlarge = get_option('medium_large_size_w', '768') . 'px';
+    $large = get_option('large_size_w', '1024') . 'px';
     return [
         'thumbnail' => "Thumbnail ($thumb)",
         'medium' => "Medium ($medium)",
@@ -315,7 +317,7 @@ add_filter('map_meta_cap', function ($caps, $cap, $user_id, $args) {
  */
 add_filter('run_wptexturize', '__return_false');
 
-// Prevent video file uploads
+// Prevent video and archive file uploads
 add_filter('upload_mimes', 'u3a_custom_mime_types');
 function u3a_custom_mime_types($mimes)
 {
@@ -334,6 +336,16 @@ function u3a_custom_mime_types($mimes)
     unset($mimes['mkv']);
     unset($mimes['3gp|3gpp']);
     unset($mimes['3g2|3gp2']);
+    // OP1174 - archive file types
+    unset($mimes['7z']);
+    unset($mimes['gz|gzip']);
+    unset($mimes['rar']);
+    unset($mimes['tar']);
+    unset($mimes['zip']);
+    // The folling archive file types are not accepted by default in WP 7.0 
+    // but may need to be excluded if the default list changes in future WP releases
+    // bz2  cab  tgz  zipx  zst
+
     return $mimes;
 }
 
@@ -381,7 +393,7 @@ function u3a_move_analytics_menu()
  * ref: https://wordpress.org/plugins/gallery-block-lightbox/
  * Relates to bug #914
  */
-add_filter( 'baguettebox_enqueue_assets', '__return_true' );
+add_filter('baguettebox_enqueue_assets', '__return_true');
 
 
 /* refer to the security section of https://developer.mozilla.org/en-US/docs/Web/HTTP
@@ -421,7 +433,7 @@ add_action("send_headers", "add_security_headers");
  * if the constant U3A_SHOW_PLUGIN_CAUTION is defined in wp-config.php
  */
 
- if (defined('U3A_SHOW_PLUGIN_CAUTION')) {
+if (defined('U3A_SHOW_PLUGIN_CAUTION')) {
     add_action('admin_notices', function () {
         global $pagenow;
         if ('plugin-install.php' == $pagenow) {
@@ -443,12 +455,12 @@ END;
 if (is_admin() && defined('U3A_SYSADMIN')) {
 
     // Remove the account actions for the defined user
-    add_filter( 'user_row_actions', function ($actions, $user) {
-        if (U3A_SYSADMIN == $user->user_login){
+    add_filter('user_row_actions', function ($actions, $user) {
+        if (U3A_SYSADMIN == $user->user_login) {
             $actions = array();
         }
         return $actions;
-    },10,2);
+    }, 10, 2);
 
     // Silently ignore attempt to delete defined System Admin user
     add_action('delete_user', function ($id, $reassign, $user) {
@@ -482,7 +494,7 @@ if (is_admin() && defined('SITEWORKS_HOSTING')) {
     add_action('admin_enqueue_scripts', function () {
         global $pagenow;
         if ('options-general.php' == $pagenow) {
-            wp_enqueue_script( 'disable-url-edit', plugins_url( '/cfg1.js', __FILE__ ), [], false, true );
+            wp_enqueue_script('disable-url-edit', plugins_url('/cfg1.js', __FILE__), [], false, true);
         }
     });
 }
