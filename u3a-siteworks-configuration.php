@@ -318,9 +318,7 @@ add_filter('map_meta_cap', function ($caps, $cap, $user_id, $args) {
 add_filter('run_wptexturize', '__return_false');
 
 // Prevent video and archive file uploads on SiteWorks hosted sites
-if (defined('SITEWORKS_HOSTING')) {
-    add_filter('upload_mimes', 'u3a_custom_mime_types');
-}
+add_filter('upload_mimes', 'u3a_custom_mime_types');
 function u3a_custom_mime_types($mimes)
 {
     unset($mimes['asf|asx']);

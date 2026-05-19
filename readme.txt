@@ -63,8 +63,7 @@ Please refer to the documentation on the [SiteWorks website](https://siteworks.u
 == Changelog ==
 = 1.2.1 =
 * Tested up to WordPress 7.0
-* Bug 1174 Do not allow upload of zip and similar archive files on SiteWorks hosting
-* Remove restriction on uploading video files on independently hosted sites
+* Bug 1174 Do not allow upload of zip and similar archive files
 = 1.2.0 =
 * Tested up to WordPress 6.8
 * Plugin update checker code revised and library updated to v5.5
