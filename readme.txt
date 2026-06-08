@@ -61,6 +61,8 @@ If these settings are not provided in wp-config.php then another mechanism must 
 Please refer to the documentation on the [SiteWorks website](https://siteworks.u3a.org.uk/u3a-siteworks-training/)
 
 == Changelog ==
+= 1.2.2 =
+* Bug 1174 Permit upload of .zip files when site is not on SiteWorks hosting platform
 = 1.2.1 =
 * Tested up to WordPress 7.0
 * Bug 1174 Do not allow upload of zip and similar archive files
