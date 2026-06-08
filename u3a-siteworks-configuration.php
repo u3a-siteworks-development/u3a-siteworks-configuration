@@ -6,7 +6,7 @@
  * Author: u3a SiteWorks team
  * Author URI: https://siteworks.u3a.org.uk/
  * Plugin URI: https://siteworks.u3a.org.uk/
- * Version: 1.2.1
+ * Version: 1.2.2
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -14,7 +14,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-define('SW_CONFIGURATION_VERSION', '1.2.1');  // Set to current plugin version number
+define('SW_CONFIGURATION_VERSION', '1.2.2');  // Set to current plugin version number
 
 /*
  * Use the plugin update service on SiteWorks update server (default)
@@ -341,7 +341,10 @@ function u3a_custom_mime_types($mimes)
     unset($mimes['gz|gzip']);
     unset($mimes['rar']);
     unset($mimes['tar']);
-    unset($mimes['zip']);
+    // Only exclude zip files on SiteWorks hosting
+    if (defined('SITEWORKS_HOSTING')) {
+        unset($mimes['zip']);
+    }
     // The folling archive file types are not accepted by default in WP 7.0 
     // but may need to be excluded if the default list changes in future WP releases
     // bz2  cab  tgz  zipx  zst
